@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <tab-panel>
+        <div data-tabname="one">Tab one</div>
+        <div data-tabname="two">Tab two</div>
+        <div data-tabname="three">Tab three</div>
+    </tab-panel>
+
+    <!-- <script>
+        function asTabs(node) {
+            const tabsContainer = document.createElement("div");
+            const buttonsContainer = document.createElement("div");
+            const tabs = node.children;
+            let currentTab = 0;
+
+            for (let i = 0; i < tabs.length; i++) {
+                const tab = tabs[i];
+                tab.style.display = "none";
+                const button = document.createElement("button");
+                button.textContent = tab.getAttribute("data-tabname");
+                button.addEventListener("click", function () {
+                    tabs[currentTab].style.display = "none";
+                    currentTab = i;
+                    tabs[currentTab].style.display = "block";
+                });
+                buttonsContainer.appendChild(button);
+            }
+
+            tabs[currentTab].style.display = "block";
+
+            tabsContainer.appendChild(buttonsContainer);
+            tabsContainer.appendChild(node);
+            node.parentNode.replaceChild(tabsContainer, node);
+        }
+        asTabs(document.querySelector("tab-panel"));
+    </script> -->
+
+    <script>
+        function asTabs(node) {
+  const tabs = Array.from(node.children);
+  const tabList = document.createElement("ul");
+
+  tabs.forEach((tab, index) => {
+    const tabName = tab.getAttribute("data-tabname");
+    const tabButton = document.createElement("button");
+    tabButton.textContent = tabName;
+    tabButton.addEventListener("click", () => selectTab(index));
+
+    const tabItem = document.createElement("li");
+    tabItem.appendChild(tabButton);
+    tabList.appendChild(tabItem);
+  });
+
+  node.insertBefore(tabList, node.firstChild);
+  selectTab(0);
+
+  function selectTab(selectedIndex) {
+    tabs.forEach((tab, index) => {
+      tab.style.display = index === selectedIndex ? "block" : "none";
+    });
+  }
+}
+asTabs(document.querySelector("tab-panel"));
+    </script>
+</body>
+
+</html>
