@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>Heading with a <span>span</span> element.</h1>
+    <p>A paragraph with <span>one</span>, <span>two</span>
+        spans.</p>
+
+    <script>
+        function byTagName(node, tagName) {
+            let elements = [];
+            tagName = tagName.toUpperCase();
+            function traverse(node) {
+                for (let i = 0; i < node.childNodes.length; i++) {
+                    let child = node.childNodes[i];
+                    if (child.nodeType === document.ELEMENT_NODE) {
+                        if (child.nodeName === tagName) {
+                            elements.push(child);
+                        }
+                        traverse(child);
+                    }
+                }
+            }
+            traverse(node);
+            return elements;
+        }
+
+        console.log(byTagName(document.body, "h1").length);
+
+        console.log(byTagName(document.body, "span").length);
+
+        let para = document.querySelector("p");
+        console.log(byTagName(para, "span").length);
+
+    </script>
+</body>
+
+</html>
