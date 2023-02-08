@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+
+    <p id="balloon">🎈</p>
+    <script>
+        const balloon = document.querySelector("#balloon");
+        let size = 100;
+        let exploded = false;
+
+        document.addEventListener("keydown", function (event) {
+            if (exploded) {
+                return;
+            }
+
+            if (event.code === "ArrowUp") {
+                size += 10;
+                if (size >= 300) {
+                    exploded = true;
+                    balloon.innerText = "💥";
+                    document.removeEventListener("keydown", arguments.callee);
+                    return;
+                }
+            } else if (event.code === "ArrowDown") {
+                size -= 10;
+            }
+
+            balloon.style.fontSize = `${size}%`;
+        });
+    </script>
+
+</body>
+
+</html>
